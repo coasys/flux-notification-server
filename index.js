@@ -16,7 +16,16 @@ app.use(bodyParser.json());
 
 // Route to send notification
 app.post('/notification', async (req, res) => {
-    const { token, title, body } = req.body;
+    const token = req.headers.authorization;
+
+    const notification = req.body;
+    const match = notification.triggerMatch;
+    const parsed = JSON.parse(match);
+    const firstMatch = parsed[0];
+    const title = firstMatch?.Title;
+    const body = firstMatch?.Description;
+
+    console.log({ title, body, token });
 
     const message = {
         notification: {
