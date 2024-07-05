@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 // Route to send notification
 app.post('/notification', async (req, res) => {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.split('Bearer ')[1];
 
     const notification = req.body;
     const match = notification.triggerMatch;
